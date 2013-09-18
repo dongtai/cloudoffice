@@ -1,1 +1,0 @@
-java -Xmx1024M -Xms1024M -XX:PermSize=128M -XX:MaxPermSize=384M dcs.server.ConvertRmiServer

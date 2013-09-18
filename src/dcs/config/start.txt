@@ -1,7 +1,0 @@
-cd WEB-INF/classes
-nohup java -Xmx1024M -Xms1024M -XX:PermSize=128M -XX:MaxPermSize=384M dcs.server.ConvertRmiServer &
-nohup：上面脚本中一行前有nohup,这是将程序的输入输出都将附加到当前目录的 nohup.out 文件中.
-&：是将程序作为后台进程来运行,不会因为终端的关闭而关闭.
-linux
-linux 测试字体安装 java dcs.FontTest
-
