@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="newtemplates" namespace="/templates" extends="json-default">
+        <action name="notice_*" method="{1}" class="templates.action.NewsAction">
+            <result name="findsuccess" >/templates/newsList.jsp</result>
+            <result name="delAtt" >/templates/stateselectman.jsp</result>
+            <result name="error" >/templates/error.jsp</result>
+            <result name="main" >/templates/main.jsp</result>
+            <result name="oksuccess" >/templates/success.jsp</result>
+            <result name="addNews" >/templates/addNews.jsp</result>
+            <result name="input" >/templates/addNews.jsp</result>
+            <result name="newsCenter" >/templates/newsCenter.jsp</result>
+            <result name="updateNews" >/templates/updateNews.jsp</result>
+            <result name="success" type="json">
+            	<param name="root">jsonResult</param>
+            </result>
+        </action>
+        <action name="template_*" method="{1}" class="templates.action.TemplateInfoAction">
+            <result name="mb" >/templates/mobanku.jsp</result>
+            <result name="tp" >/templates/templates.jsp</result>
+            <result name="up" >/templates/templateInfo.jsp</result>
+            <result name="ft" >/templates/favoriteTmp.jsp</result>
+            <result name="ct" >/templates/collectionTmp.jsp</result>
+            <result name="ca" >/templates/collectionAll.jsp</result>
+            <result name="success">/templates/mobanku.jsp</result>
+            <result name="error" >/templates/error.jsp</result>
+        </action>
+        <action name="initdata_*" method="{1}" class="templates.action.InitAction">
+            <result name="oksuccess" >/templates/success.jsp</result>
+            <result name="error" >/templates/error.jsp</result>
+            <result name="success" type="redirectAction">oksuccess</result>
+        </action>
+        <action name="question_*" method="{1}" class="templates.action.QuestionnnaireAction">
+            <result name="oksuccess" >/templates/success.jsp</result>
+            <result name="feedbackView" >/templates/feedbackView.jsp</result>
+            <result name="backResult" >/templates/backResult.jsp</result>
+            <result name="error" >/templates/main.html</result>
+            
+            <result name="success" type="redirectAction">oksuccess</result>
+        </action>
+        <action name="*" class="templates.action.AllSupport">
+            <result>/templates/{1}.jsp</result>
+        </action>
+    </package>
+</struts>

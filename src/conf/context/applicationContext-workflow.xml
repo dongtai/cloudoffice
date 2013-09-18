@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+		
+	<bean id="workflowManagement" class="apps.moreoffice.workflow.process.WorkflowManagementFactory">		
+		<property name="bpmnDir" value="${workflow.bpm.dir}" />	
+		<property name="jtaName" value="${workflow.datasource.jta-name}" />
+		<property name="driverClass" value="${workflow.datasource.driver-class}" />
+		<property name="maxPoolSize" value="${workflow.datasource.max-pool-size}" />
+		<property name="allowLocalTransactions" value="${workflow.datasource.allow-local-transactions}" />
+		<property name="user" value="${jdbc-0.user}" />
+		<property name="password" value="${jdbc-0.password}" />
+		<property name="databaseURL" value="${jdbc-0.proxool.driver-url}" />
+		<property name="port"  value="${workflow.service.port}" />
+		<property name="properties" >
+			<map>
+			  <entry key="hibernate.dialect">
+			  	<value>${database.hibernate.dialect}</value>
+			  </entry>	
+		      <entry key="hibernate.connection.username">
+			  	<value>${jdbc-0.user}</value>
+			  </entry>	
+		      <entry key="hibernate.connection.password">
+			  	<value>${jdbc-0.password}</value>
+			  </entry>	
+		      <entry key="hibernate.connection.url">
+			  	<value>${jdbc-0.proxool.driver-url}</value>
+			  </entry>	
+		      <entry key="hibernate.connection.driver_class">
+			  	<value>${jdbc-0.proxool.driver-class}</value>
+			  </entry>	
+    		  <entry key="hibernate.max_fetch_depth">
+			  	<value>${database.hibernate.max_fetch_depth}</value>
+			  </entry>	
+    		  <entry key="hibernate.show_sql">
+			  	<value>${database.hibernate.showsql}</value>
+			  </entry>	
+	     	</map>
+     	</property>
+	</bean>
+	
+	<bean id="workFlowServer" class="apps.moreoffice.workflow.server.WorkFlowServer">	
+		<property name="port"  value="${workflow.service.port}" />
+		<property name="properties" >
+			<map>
+			  <entry key="hibernate.dialect">
+			  	<value>${database.hibernate.dialect}</value>
+			  </entry>	
+		      <entry key="hibernate.connection.username">
+			  	<value>${jdbc-0.user}</value>
+			  </entry>	
+		      <entry key="hibernate.connection.password">
+			  	<value>${jdbc-0.password}</value>
+			  </entry>	
+		      <entry key="hibernate.connection.url">
+			  	<value>${jdbc-0.proxool.driver-url}</value>
+			  </entry>	
+		      <entry key="hibernate.connection.driver_class">
+			  	<value>${jdbc-0.proxool.driver-class}</value>
+			  </entry>	
+    		  <entry key="hibernate.max_fetch_depth">
+			  	<value>${database.hibernate.max_fetch_depth}</value>
+			  </entry>	
+    		  <entry key="hibernate.show_sql">
+			  	<value>${database.hibernate.showsql}</value>
+			  </entry>	
+	     	</map>
+     	</property>
+	</bean>
+	
+	<bean id="workflowServices" class="apps.moreoffice.workflow.services.WorkflowServices">
+	</bean>
+	
+	
+	</beans>

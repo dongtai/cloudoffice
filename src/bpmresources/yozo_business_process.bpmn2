@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_descriptionItem" structureRef="String" />
+  <itemDefinition id="_auditStatusItem" structureRef="Boolean" />
+  <itemDefinition id="_applicationItem" structureRef="String" />
+  <itemDefinition id="_acceptanceItem" structureRef="String" />
+  <itemDefinition id="_implementationItem" structureRef="String" />
+  <itemDefinition id="_actorIdItem" structureRef="String" />
+
+  <process processType="Private" isExecutable="true" id="com.yozo.business_process" name="yozo_business_process" tns:packageName="defaultPackage" >
+
+    <!-- process variables -->
+    <property id="description" itemSubjectRef="_descriptionItem"/>
+    <property id="auditStatus" itemSubjectRef="_auditStatusItem"/>
+    <property id="application" itemSubjectRef="_applicationItem"/>
+    <property id="acceptance" itemSubjectRef="_acceptanceItem"/>
+    <property id="implementation" itemSubjectRef="_implementationItem"/>
+    <property id="actorId" itemSubjectRef="_actorIdItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="Start" />
+    <userTask id="_2" name="start flow" >
+      <ioSpecification>
+        <dataInput id="_2_CommentInput" name="Comment" />
+        <dataInput id="_2_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_2_CommentInput</dataInputRefs>
+          <dataInputRefs>_2_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_2_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">start application</from>
+          <to xsi:type="tFormalExpression">_2_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_2_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">start</from>
+          <to xsi:type="tFormalExpression">_2_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{actorId}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_3" name="business application" >
+      <ioSpecification>
+        <dataInput id="_3_CommentInput" name="Comment" />
+        <dataInput id="_3_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_3_CommentInput</dataInputRefs>
+          <dataInputRefs>_3_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_3_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">business application</from>
+          <to xsi:type="tFormalExpression">_3_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">application</from>
+          <to xsi:type="tFormalExpression">_3_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{actorId}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_4" name="business acceptance" >
+      <ioSpecification>
+        <dataInput id="_4_CommentInput" name="Comment" />
+        <dataInput id="_4_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_4_CommentInput</dataInputRefs>
+          <dataInputRefs>_4_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_4_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">business acceptance</from>
+          <to xsi:type="tFormalExpression">_4_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_4_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">acceptance</from>
+          <to xsi:type="tFormalExpression">_4_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{actorId}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_5" name="department audit" >
+      <ioSpecification>
+        <dataInput id="_5_CommentInput" name="Comment" />
+        <dataInput id="_5_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_5_CommentInput</dataInputRefs>
+          <dataInputRefs>_5_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_5_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">department audit</from>
+          <to xsi:type="tFormalExpression">_5_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_5_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">audit</from>
+          <to xsi:type="tFormalExpression">_5_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{actorId}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_6" name="business implementation" >
+      <ioSpecification>
+        <dataInput id="_6_CommentInput" name="Comment" />
+        <dataInput id="_6_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_6_CommentInput</dataInputRefs>
+          <dataInputRefs>_6_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_6_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">business implementation</from>
+          <to xsi:type="tFormalExpression">_6_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_6_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">implementation</from>
+          <to xsi:type="tFormalExpression">_6_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{actorId}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <endEvent id="_7" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <exclusiveGateway id="_8" name="Gateway" gatewayDirection="Converging" />
+    <inclusiveGateway id="_9" name="Gateway" gatewayDirection="Diverging" />
+
+    <!-- connections -->
+    <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
+    <sequenceFlow id="_8-_3" sourceRef="_8" targetRef="_3" />
+    <sequenceFlow id="_3-_4" sourceRef="_3" targetRef="_4" />
+    <sequenceFlow id="_4-_5" sourceRef="_4" targetRef="_5" />
+    <sequenceFlow id="_9-_6" sourceRef="_9" targetRef="_6" name="pass" >
+      <conditionExpression xsi:type="tFormalExpression" >return auditStatus;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_6-_7" sourceRef="_6" targetRef="_7" />
+    <sequenceFlow id="_9-_8" sourceRef="_9" targetRef="_8" name="nopass" >
+      <conditionExpression xsi:type="tFormalExpression" >return !auditStatus;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_2-_8" sourceRef="_2" targetRef="_8" />
+    <sequenceFlow id="_5-_9" sourceRef="_5" targetRef="_9" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.yozo.business_process" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="91" y="41" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="161" y="42" width="146" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="161" y="137" width="148" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="166" y="232" width="139" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="168" y="322" width="139" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="169" y="412" width="143" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="216" y="518" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="380" y="39" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_9" >
+        <dc:Bounds x="379" y="318" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-_2" >
+        <di:waypoint x="115" y="65" />
+        <di:waypoint x="234" y="66" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_3" >
+        <di:waypoint x="404" y="63" />
+        <di:waypoint x="235" y="161" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-_4" >
+        <di:waypoint x="235" y="161" />
+        <di:waypoint x="235" y="256" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_5" >
+        <di:waypoint x="235" y="256" />
+        <di:waypoint x="237" y="346" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9-_6" >
+        <di:waypoint x="403" y="342" />
+        <di:waypoint x="240" y="436" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_7" >
+        <di:waypoint x="240" y="436" />
+        <di:waypoint x="240" y="542" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9-_8" >
+        <di:waypoint x="403" y="342" />
+        <di:waypoint x="404" y="63" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-_8" >
+        <di:waypoint x="234" y="66" />
+        <di:waypoint x="404" y="63" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_9" >
+        <di:waypoint x="237" y="346" />
+        <di:waypoint x="403" y="342" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

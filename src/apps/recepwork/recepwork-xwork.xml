@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="recepwork" namespace="/recepwork" extends="struts-default">
+        <action name="reception_*" method="{1}" class="recepwork.ReceptionWork">
+            <result name="input" >/recepwork/receptionlist.jsp</result>
+            <result name="add" >/recepwork/receptionadd.jsp</result>
+            <result name="view" >/recepwork/receptionview.jsp</result>
+            <result name="power" >/recepwork/receptionpower.jsp</result>
+            <result name="history" >/recepwork/receptionhistory.jsp</result>
+            <result name="save" >/recepwork/receptionview.jsp</result>
+            <result name="edit" >/recepwork/receptionedit.jsp</result>
+            <result name="search" >/recepwork/receptionsearch.jsp</result>
+            <result name="searchlist" >/recepwork/receptionlist.jsp</result>
+            <result name="success" type="redirectAction">receptionlist</result>
+            <result name="logout">/cloud/login.html</result>
+        </action>
+
+        <action name="*" class="recepwork.AllSupport">
+            <result>/recepwork/{1}.jsp</result>
+        </action>
+
+        <!-- Add actions here -->
+    </package>
+</struts>

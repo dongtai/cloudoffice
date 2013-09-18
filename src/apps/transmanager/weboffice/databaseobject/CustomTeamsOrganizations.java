@@ -1,0 +1,72 @@
+package apps.transmanager.weboffice.databaseobject;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Parameter;
+
+import apps.transmanager.weboffice.domain.SerializableAdapter;
+
+/**
+ * 用户自定义的分组中的组织成员关联表，即是在用户自定义组中
+ * 可以把组织结构作为一个成员整体加入。
+ * <p>
+ * <p>
+ * 
+ * @author 徐文平
+ * @version 2.0
+ * @see
+ * @since web2.0
+ */
+
+@Entity
+@Table(name="customteamsorganizations")
+public class CustomTeamsOrganizations implements SerializableAdapter
+{
+
+	@Id
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_custom_teams_organization_gen")
+	@GenericGenerator(name = "seq_custom_teams_organization_gen", strategy = "native", parameters = { @Parameter(name = "sequence", value = "SEQ_CUSTOM_TEAMS_ORGANIZATIONS_ID") })
+	private Long id;
+	@ManyToOne()
+	@OnDelete(action=OnDeleteAction.CASCADE)
+	private Organizations organization;         // 在用户自定义组中的组织成员
+	@ManyToOne()
+	@OnDelete(action=OnDeleteAction.CASCADE)
+	private CustomTeams customTeam;   // 用户自定义的组
+	
+	public Long getId()
+	{
+		return id;
+	}
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
+	
+	public Organizations getOrganization()
+	{
+		return organization;
+	}
+	public void setOrganization(Organizations organization)
+	{
+		this.organization = organization;
+	}
+	public CustomTeams getCustomTeam()
+	{
+		return customTeam;
+	}
+	public void setCustomTeam(CustomTeams customTeam)
+	{
+		this.customTeam = customTeam;
+	}	
+	
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.yozo.report.commons.domain.databaseObject">
+	<class name="DataTable" table="rpt_sys_dataTable">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name">
+			<column name="name" length="64" not-null="true">
+				<comment>逻辑上的表名</comment>
+			</column>
+		</property>
+		<property name="realName">
+			<column name="realName" length="64" not-null="true">
+				<comment>物理上的字段名，即真正的字段名</comment>
+			</column>
+		</property>
+		<property name="createState">
+			<column name="createState">
+				<comment>创建状态</comment>
+			</column>
+		</property>
+		<set name="permissions" cascade="all" lazy="false">
+			<key>
+				<column name="dtable_id" />
+			</key>
+			<one-to-many class="Permission" />
+		</set>
+		<set name="dfields" cascade="all" lazy="false">
+			<key>
+				<column name="dtable_id">
+					<comment>数据表id</comment>
+				</column>
+			</key>
+			<one-to-many class="DataField" />
+		</set>
+		<many-to-one name="dataSource" cascade="all">
+			<column name="dataSource_id">
+				<comment>对应的数据源id</comment>
+			</column>
+		</many-to-one>
+		<set name="downListRules" inverse="true" cascade="delete">
+			<key>
+				<column name="dtable_id" />
+			</key>
+			<one-to-many class="DownListRule" />
+		</set>
+		<set name="listSelectRules" inverse="true" cascade="delete">
+			<key>
+				<column name="dtable_id" />
+			</key>
+			<one-to-many class="ListSelectRule" />
+		</set>
+		<set name="treeSelectRules" inverse="true" cascade="delete">
+			<key>
+				<column name="dtable_id" />
+			</key>
+			<one-to-many class="TreeSelectRule" />
+		</set>
+		<set name="rtables" inverse="true" cascade="delete">
+			<key>
+				<column name="dtable_id" />
+			</key>
+			<one-to-many class="RTable" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	
+	<bean id="memCacheBean" class="apps.transmanager.weboffice.service.cache.MemCache"  init-method="init">
+		<property name="cluster" value="${cluster.enable}" />
+	</bean>
+	
+	<bean id="webConfigBean" class="apps.transmanager.weboffice.service.config.WebConfig">
+		<property name="cluster" value="${cluster.enable}" />
+		<property name="autoConfig" value="${auto.bind.ip.enable}" />
+		<property name="bindIp" value="${bind.local.ip}" />
+		<property name="database" value="${repository.database.enable}" />
+		<property name="sysdatabase" value="${jdbc-0.proxool.driver-url}" />
+		<property name="sysuser" value="${jdbc-0.user}" />
+		<property name="syspsw" value="${jdbc-0.password}" />
+		<property name="backpath" value="${database.backpath}" />	
+		<property name="workflowServiceEnable" value="${workflow.service.enable}" />
+		<property name="workflowProcessEnable" value="${workflow.process.enable}" />
+		<property name="encoding" value="${web.server.uri.charset}" />
+		<property name="logPath" value="${system.log.loaction}" />
+		<property name="logLevel" value="${system.log.level}" />
+		<property name="delLog" value="${system.log.del}" />
+		<property name="databaseType" value="${database.type}" />
+		<property name="console" value="${system.out.console}" />
+		<property name="entryptEnable" value="${entryptEnable}" />
+		<property name="printType" value="${printType}" />
+		<property name="printIP" value="${printIP}" />
+		<property name="printPort" value="${printPort}" />
+		<property name="serverurlip" value="${server.urlip}" />
+		<property name="serverurlname" value="${server.urlname}" />
+		<property name="smsname" value="${smsname}" />
+		<property name="userLogPath" value="${user.log.location}" />
+		<property name="portraitPath" value="${user.image.location}" />
+		<property name="printEnable" value="${printEnable}" />
+		<property name="mailEnable" value="${mail.server.enable}" />
+		<property name="mailServerAddress" value="${mail.server.address}" />
+		<property name="mailPort" value="${mail.server.port}" />
+		<property name="mailDomain" value="${mail.server.domain}" />				
+		<property name="clusterSchema" value="${cluster.schema}" />
+		<property name="clusterIPString" value="${cluster.address}" />
+		<property name="language" value="${locale.language}" />
+		<property name="country" value="${locale.country}" />
+		<property name="publicserver" value="${mail.server.publicserver}" />
+		<property name="publicname" value="${mail.server.publicname}" />
+		<property name="publicpass" value="${mail.server.publicpass}" />
+		<property name="publicdisplay" value="${mail.server.publicdisplay}" />
+		<property name="serverurl" value="${mobilemessage.serverurl}" />
+		<property name="clientSDK" value="${mobilemessage.clientSDK}" />
+		<property name="clientPWD" value="${mobilemessage.clientPWD}" />
+		<property name="shortNUM" value="${mobilemessage.shortNUM}" />
+		<property name="receiveBack" value="${mobilemessage.receiveBack}" />
+		<property name="mobileopened" value="${mobilemessage.opened}" />
+		<property name="outwebserviceurl" value="${outwebserviceurl}" />
+		<property name="nginxiptag" value="${nginx.iptag}" />
+		<property name="nginxforwardtag" value="${nginx.forwardtag}" />
+		<property name="defaultsize" value="${repository.defaultsize}" />
+		<property name="cloudPro" value="${system.cloud.public}" />
+		<property name="replacetag" value="${replacetag}" />
+		<property name="identifycode" value="${identifycode}" />
+		<property name="register" value="${register}" />
+		<property name="importFiles" value="${importfiles.enable}" />
+		<property name="importtemplate" value="${importtemplate.enable}" />
+		<property name="outsameusertag" value="${outsameusertag}" />
+		<property name="signhistoryview" value="${signhistoryview}" />
+		<property name="accesstype" value="${accesstype}" />
+		<property name="projectname" value="${projectname}" />
+		<property name="signmodifydefault" value="${signmodifydefault}" />
+		
+	</bean>
+	<bean id="defaultMailServerConfig" class="apps.transmanager.weboffice.service.config.DefaultMailServerConfig">
+		<property name="incomingServerType" value="${server_type}" />
+		<property name="incomingServer" value="${incoming_server}" />
+		<property name="incomingport" value="${incoming_port}" />
+		<property name="inSSL" value="${incoming_ssl}" />
+		<property name="outgoingServer" value="${outgoing_server}" />
+		<property name="outgoingport" value="${outgoing_port}" />
+		<property name="outSSL" value="${outgoing_ssl}" />
+		<property name="smtpAuth" value="${smtp_auth}" />
+		
+		<property name="msgsizelimit" value="${msg_size_limit}" />
+		<property name="onereceivemaxnumber" value="${one_receive_max_number}" />
+		
+		<property name="storageenabled" value="${storage_enabled}" />
+		<property name="storagetype" value="${storage_type}" />
+		<property name="storagelocation" value="${storage_location}" />
+		<property name="isbackgroudreceive" value="${backgroud_receive}" />
+		<property name="mailtag" value="${mailtag}" />
+	</bean>
+	
+	<bean id="handleMethodConfig" class="apps.transmanager.weboffice.service.config.HandlerConfig" init-method="init">
+		<property name="packHandlers" >    <!--   list handler class package name -->
+			<list>
+                <value>apps.transmanager.weboffice.service.handler</value>
+            </list>  
+        </property> 
+        <!--      class name
+        <property name="classHandlers" >
+			<list> 
+				<value>com.evermore.weboffice.service.handler.LogHandler</value>
+            </list>  
+        </property>
+        -->
+	</bean>
+	
+	</beans>
+	

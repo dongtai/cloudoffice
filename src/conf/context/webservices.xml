@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd"
+	default-autowire="byName" default-lazy-init="true"> 
+    
+    
+     <import resource="classpath:META-INF/cxf/cxf.xml" />  
+     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />  
+     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" /> 
+    <!-- 
+    <bean id="authWebServiceBean" class="com.evermore.webservices.AuthWebServicesImpl">
+    </bean>
+    
+    <jaxws:server id="authWebService" 
+        serviceClass="com.evermore.webservices.AuthWebServices" 
+        address="/AuthWebService">
+        <jaxws:serviceBean>
+            <ref bean="authWebServiceBean"/>
+            </jaxws:serviceBean>
+    </jaxws:server>    
+    
+     
+     <jaxws:endpoint id="authWebService"  
+         address="/AuthWebService" implementor="com.yozo4wh.services.AuthWebServicesImpl"/>  
+     --> 
+     <!-- 
+     <jaxws:endpoint id="AuditOA"  
+         address="/AuditOA" implementor="com.yozo.webservices.server.AuditOASupport"/>
+     <jaxws:endpoint id="usersWebServices"  
+         address="/UsersWebServices" implementor="com.yozo.webservices.UsersWebServicesImpl"/>
+          -->
+</beans>  

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_attachAddressItem" structureRef="String" />
+  <itemDefinition id="_achieveAddressItem" structureRef="String" />
+  <itemDefinition id="_auditStatusItem" structureRef="Boolean" />
+  <itemDefinition id="_actorIdItem" structureRef="String" />
+  <itemDefinition id="_applyItem" structureRef="String" />
+  <itemDefinition id="_managerauditItem" structureRef="String" />
+  <itemDefinition id="_financialauditItem" structureRef="String" />
+
+  <process processType="Private" isExecutable="true" id="com.yozo.finanical_reimbursement" name="yozo_financial_reimbursement" tns:packageName="defaultPackage" >
+
+    <!-- process variables -->
+    <property id="attachAddress" itemSubjectRef="_attachAddressItem"/>
+    <property id="achieveAddress" itemSubjectRef="_achieveAddressItem"/>
+    <property id="auditStatus" itemSubjectRef="_auditStatusItem"/>
+    <property id="actorId" itemSubjectRef="_actorIdItem"/>
+    <property id="apply" itemSubjectRef="_applyItem"/>
+    <property id="manageraudit" itemSubjectRef="_managerauditItem"/>
+    <property id="financialaudit" itemSubjectRef="_financialauditItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="Start" />
+    <userTask id="_2" name="start flow" >
+      <ioSpecification>
+        <dataInput id="_2_CommentInput" name="Comment" />
+        <dataInput id="_2_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_2_CommentInput</dataInputRefs>
+          <dataInputRefs>_2_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_2_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">start apply</from>
+          <to xsi:type="tFormalExpression">_2_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_2_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">start</from>
+          <to xsi:type="tFormalExpression">_2_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{actorId}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_3" name="financial apply" >
+      <ioSpecification>
+        <dataInput id="_3_CommentInput" name="Comment" />
+        <dataInput id="_3_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_3_CommentInput</dataInputRefs>
+          <dataInputRefs>_3_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_3_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">financial application</from>
+          <to xsi:type="tFormalExpression">_3_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">apply</from>
+          <to xsi:type="tFormalExpression">_3_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{actorId}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_4" name="manager audit" >
+      <ioSpecification>
+        <dataInput id="_4_CommentInput" name="Comment" />
+        <dataInput id="_4_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_4_CommentInput</dataInputRefs>
+          <dataInputRefs>_4_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_4_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">manager audit</from>
+          <to xsi:type="tFormalExpression">_4_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_4_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">manageraudit</from>
+          <to xsi:type="tFormalExpression">_4_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{actorId}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_5" name="financial audit" >
+      <ioSpecification>
+        <dataInput id="_5_CommentInput" name="Comment" />
+        <dataInput id="_5_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_5_CommentInput</dataInputRefs>
+          <dataInputRefs>_5_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_5_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">financial audit</from>
+          <to xsi:type="tFormalExpression">_5_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_5_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">financialaudit</from>
+          <to xsi:type="tFormalExpression">_5_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{actorId}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_8" name="pay money" >
+      <ioSpecification>
+        <dataInput id="_8_CommentInput" name="Comment" />
+        <dataInput id="_8_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_8_CommentInput</dataInputRefs>
+          <dataInputRefs>_8_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_8_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">cashier pay money</from>
+          <to xsi:type="tFormalExpression">_8_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_8_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">paymoney</from>
+          <to xsi:type="tFormalExpression">_8_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{actorId}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <endEvent id="_9" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <exclusiveGateway id="_10" name="Gateway" gatewayDirection="Converging" />
+    <inclusiveGateway id="_11" name="Gateway" gatewayDirection="Diverging" />
+    <inclusiveGateway id="_12" name="Gateway" gatewayDirection="Diverging" />
+
+    <!-- connections -->
+    <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
+    <sequenceFlow id="_10-_3" sourceRef="_10" targetRef="_3" />
+    <sequenceFlow id="_3-_4" sourceRef="_3" targetRef="_4" />
+    <sequenceFlow id="_11-_5" sourceRef="_11" targetRef="_5" name="pass" >
+      <conditionExpression xsi:type="tFormalExpression" >return auditStatus;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_12-_8" sourceRef="_12" targetRef="_8" name="pass1" >
+      <conditionExpression xsi:type="tFormalExpression" >return auditStatus;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_8-_9" sourceRef="_8" targetRef="_9" />
+    <sequenceFlow id="_2-_10" sourceRef="_2" targetRef="_10" />
+    <sequenceFlow id="_11-_10" sourceRef="_11" targetRef="_10" name="nopass" >
+      <conditionExpression xsi:type="tFormalExpression" >return !auditStatus;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_12-_10" sourceRef="_12" targetRef="_10" name="nopass1" >
+      <conditionExpression xsi:type="tFormalExpression" >return !auditStatus;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_4-_11" sourceRef="_4" targetRef="_11" />
+    <sequenceFlow id="_5-_12" sourceRef="_5" targetRef="_12" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.yozo.finanical_reimbursement" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="36" y="48" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="144" y="48" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="144" y="144" width="97" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="144" y="240" width="97" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="144" y="336" width="97" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="144" y="432" width="97" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_9" >
+        <dc:Bounds x="168" y="528" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_10" >
+        <dc:Bounds x="336" y="48" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_11" >
+        <dc:Bounds x="336" y="240" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_12" >
+        <dc:Bounds x="336" y="336" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-_2" >
+        <di:waypoint x="60" y="72" />
+        <di:waypoint x="194" y="72" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_3" >
+        <di:waypoint x="360" y="72" />
+        <di:waypoint x="192" y="168" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-_4" >
+        <di:waypoint x="192" y="168" />
+        <di:waypoint x="192" y="264" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_11-_5" >
+        <di:waypoint x="360" y="264" />
+        <di:waypoint x="192" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12-_8" >
+        <di:waypoint x="360" y="360" />
+        <di:waypoint x="192" y="456" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_9" >
+        <di:waypoint x="192" y="456" />
+        <di:waypoint x="192" y="552" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-_10" >
+        <di:waypoint x="194" y="72" />
+        <di:waypoint x="360" y="72" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_11-_10" >
+        <di:waypoint x="360" y="264" />
+        <di:waypoint x="360" y="72" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12-_10" >
+        <di:waypoint x="360" y="360" />
+        <di:waypoint x="457" y="360" />
+        <di:waypoint x="457" y="72" />
+        <di:waypoint x="360" y="72" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_11" >
+        <di:waypoint x="192" y="264" />
+        <di:waypoint x="360" y="264" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_12" >
+        <di:waypoint x="192" y="360" />
+        <di:waypoint x="360" y="360" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.yozo.report.commons.domain.databaseObject">
+	<class name="RField" table="rpt_sys_rfield">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<many-to-one name="rtable">
+			<column name="rtable_id">
+				<comment>对应的RTableid</comment>
+			</column>
+		</many-to-one>
+		<many-to-one name="dfield" cascade="all" lazy="false">
+			<column name="dfield_id">
+				<comment>对应的物理字段id</comment>
+			</column>
+		</many-to-one>
+		<many-to-one name="dataType" lazy="false">
+			<column name="dataType_id">
+				<comment>数据类型id</comment>
+			</column>
+		</many-to-one>
+		<property name="attrFlag">
+			<column name="attrFlag">
+				<comment>基本属性集</comment>
+			</column>
+		</property>
+		<property name="addressType">
+			<column name="addressType">
+				<comment>目标类型</comment>
+			</column>
+		</property>
+		<property name="sheetID">
+			<column name="sheetID">
+				<comment>目标所在的sheetID</comment>
+			</column>
+		</property>
+		<property name="address">
+			<column name="address">
+				<comment>目标地址</comment>
+			</column>
+		</property>
+		<property name="alias">
+			<column name="alias">
+				<comment>别名</comment>
+			</column>
+		</property>
+		<property name="notNullTip">
+			<column name="notNullTip">
+				<comment>必填提示</comment>
+			</column>
+		</property>
+		<property name="position">
+			<column name="position">
+				<comment>位置</comment>
+			</column>
+		</property>
+		<many-to-one name="hyperLink" cascade="all">
+			<column name="hyperLink_id">
+				<comment>超链接id</comment>
+			</column>
+		</many-to-one>
+		<many-to-one name="dataRuleCond" cascade="all">
+			<column name="dataRuleCond_id">
+				<comment>数据规范条件id</comment>
+			</column>
+		</many-to-one>
+		<set name="joinCondOnLefts" inverse="true" cascade="delete">
+			<key>
+				<column name="leftField_id" />
+			</key>
+			<one-to-many class="JoinCond" />
+		</set>
+		<set name="joinCondOnRights" inverse="true" cascade="delete">
+			<key>
+				<column name="rightField_id" />
+			</key>
+			<one-to-many class="JoinCond" />
+		</set>
+		<set name="fillModeItems" inverse="true" cascade="delete">
+			<key>
+				<column name="rfield_id" />
+			</key>
+			<one-to-many class="FillModeItem" />
+		</set>
+		<set name="hyperLinkInfos" inverse="true" cascade="delete">
+			<key>
+				<column name="currentField_id" />
+			</key>
+			<one-to-many class="HyperLinkInfo" />
+		</set>
+		<set name="hyperLinkInfos_target" inverse="true" cascade="delete">
+			<key>
+				<column name="targetField_id" />
+			</key>
+			<one-to-many class="HyperLinkInfo" />
+		</set>
+		<set name="dataRuleConds" inverse="true" cascade="delete">
+			<key>
+				<column name="parentField_id" />
+			</key>
+			<one-to-many class="DataRuleCond" />
+		</set>
+		<set name="writeModeItems" inverse="true" cascade="delete">
+			<key>
+				<column name="rfield_id" />
+			</key>
+			<one-to-many class="WriteModeItem" />
+		</set>
+		<set name="permissions_hide" table="rpt_sys_permission_rfield" inverse="true">
+			<key>
+				<column name="hideField_id">
+					<comment>隐藏字段id</comment>
+				</column>
+			</key>
+			<many-to-many class="Permission" column="permissionid" />
+		</set>
+		<set name="permissions_fill" table="rpt_sys_permission_rfield" inverse="true">
+			<key>
+				<column name="fillField_id">
+					<comment>填充字段id</comment>
+				</column>
+			</key>
+			<many-to-many class="Permission" column="permissionid" />
+		</set>
+	</class>
+</hibernate-mapping>

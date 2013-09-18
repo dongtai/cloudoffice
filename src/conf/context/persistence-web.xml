@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence
+    version="1.0"
+    xsi:schemaLocation=
+    	"http://java.sun.com/xml/ns/persistence
+    	 http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd
+		 http://java.sun.com/xml/ns/persistence/orm 
+		 http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+    xmlns:orm="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/persistence">
+	 
+	 <persistence-unit name="com.yozo.web"  transaction-type="RESOURCE_LOCAL">  
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>  
+        <mapping-file>conf/context/orm-web.xml</mapping-file> 
+        <class>apps.transmanager.weboffice.databaseobject.FileLog</class>
+        <class>apps.transmanager.weboffice.databaseobject.Filetaginfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.Groupmembershareinfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.Groupshareinfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.License</class>
+        <class>apps.transmanager.weboffice.databaseobject.NewPersonshareinfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.Online</class>
+        <class>apps.transmanager.weboffice.databaseobject.Personshareinfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.Scheduletask</class>
+        <class>apps.transmanager.weboffice.databaseobject.Taginfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.UserWorkaday</class>
+        <class>apps.transmanager.weboffice.databaseobject.Files</class>
+        
+        <!-- 新闻订阅  -->
+        <class>apps.transmanager.weboffice.databaseobject.WebInfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.NewsInfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.UserCustomeNews</class>
+        
+        <class>apps.transmanager.weboffice.databaseobject.PersonApps</class>
+        <class>apps.transmanager.weboffice.databaseobject.Company</class>
+        <class>apps.transmanager.weboffice.databaseobject.Permissions</class>
+        <class>apps.transmanager.weboffice.databaseobject.Users</class>
+        <!-- 用户交换 -->
+        <class>apps.transmanager.weboffice.databaseobject.UsersSynch</class>
+        <class>apps.transmanager.weboffice.databaseobject.UsersPermissions</class>        
+        <class>apps.transmanager.weboffice.databaseobject.UsersGroups</class>
+        <class>apps.transmanager.weboffice.databaseobject.UsersRoles</class>
+        <class>apps.transmanager.weboffice.databaseobject.UsersOrganizations</class>
+        <class>apps.transmanager.weboffice.databaseobject.Groups</class>
+        <class>apps.transmanager.weboffice.databaseobject.GroupsOrganizations</class>
+        <class>apps.transmanager.weboffice.databaseobject.GroupsRoles</class>
+        <class>apps.transmanager.weboffice.databaseobject.GroupsPermissions</class>
+        <class>apps.transmanager.weboffice.databaseobject.Organizations</class>
+        <class>apps.transmanager.weboffice.databaseobject.OrganizationsPermissions</class>
+        <class>apps.transmanager.weboffice.databaseobject.OrganizationsRoles</class>
+        <class>apps.transmanager.weboffice.databaseobject.Roles</class>
+        <class>apps.transmanager.weboffice.databaseobject.RolesPermissions</class>
+        <class>apps.transmanager.weboffice.databaseobject.FileSystemActions</class>
+        <class>apps.transmanager.weboffice.databaseobject.FileSystemResources</class>
+        <class>apps.transmanager.weboffice.databaseobject.UserFileSysResources</class>
+        <class>apps.transmanager.weboffice.databaseobject.GroupFileSysResources</class>
+        <class>apps.transmanager.weboffice.databaseobject.OrganizationFileSysResources</class>
+        <class>apps.transmanager.weboffice.databaseobject.CompanyFileSysResources</class>
+        <class>apps.transmanager.weboffice.databaseobject.CustomTeams</class>
+        <class>apps.transmanager.weboffice.databaseobject.CustomTeamsFiles</class>
+        <class>apps.transmanager.weboffice.databaseobject.UserDesks</class>
+        
+        <class>apps.transmanager.weboffice.databaseobject.UsersCustomTeams</class>
+        <class>apps.transmanager.weboffice.databaseobject.UsersConfig</class>
+        <class>apps.transmanager.weboffice.databaseobject.Spaces</class>
+        <class>apps.transmanager.weboffice.databaseobject.Bulletins</class>
+        <class>apps.transmanager.weboffice.databaseobject.CustomTeamFileSysResources</class>
+        <class>apps.transmanager.weboffice.databaseobject.CustomTeamPermissions</class>
+        <class>apps.transmanager.weboffice.databaseobject.CustomTeamsRoles</class>
+        <class>apps.transmanager.weboffice.databaseobject.CustomTeamsGroups</class>
+        <class>apps.transmanager.weboffice.databaseobject.CustomTeamsOrganizations</class>
+        <class>apps.transmanager.weboffice.databaseobject.JobTitles</class>
+        <class>apps.transmanager.weboffice.databaseobject.SystemManageResources</class>
+        <class>apps.transmanager.weboffice.databaseobject.SystemManageActions</class>
+        <class>apps.transmanager.weboffice.databaseobject.SpacesActions</class>
+        <class>apps.transmanager.weboffice.databaseobject.RolesActions</class>
+        <class>apps.transmanager.weboffice.databaseobject.Messages</class>
+        <class>apps.transmanager.weboffice.databaseobject.UsersMessages</class>
+        <class>apps.transmanager.weboffice.databaseobject.UsersDevice</class>
+        <class>apps.transmanager.weboffice.databaseobject.GroupsRolesAction</class>
+        <class>apps.transmanager.weboffice.databaseobject.OrganizationsRolesAction</class>
+        <class>apps.transmanager.weboffice.databaseobject.SysReport</class>
+        <class>apps.transmanager.weboffice.databaseobject.CalendarEvent</class>
+        <class>apps.transmanager.weboffice.databaseobject.CalendarRelation</class>
+        <class>apps.transmanager.weboffice.databaseobject.CalendarInviteer</class>
+        <class>apps.transmanager.weboffice.databaseobject.CalendarFocused</class>
+        <class>apps.transmanager.weboffice.databaseobject.CalendarEmpower</class>
+        <class>apps.transmanager.weboffice.databaseobject.CalendarPublicer</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalInfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalTask</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalSignRead</class>
+        <class>apps.transmanager.weboffice.databaseobject.SignInfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalDic</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalDefaulter</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalReader</class>
+        <class>apps.transmanager.weboffice.databaseobject.SameSignInfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalReaderDelete</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalFiles</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalFilesHistory</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalSave</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalCooper</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalTaskFiles</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalCooperFiles</class>
+        <class>apps.transmanager.weboffice.databaseobject.ApprovalCollect</class>
+        
+        <class>apps.transmanager.weboffice.databaseobject.SystemLogs</class>
+        <class>apps.transmanager.weboffice.databaseobject.MobileSendInfo</class>
+		<class>apps.transmanager.weboffice.databaseobject.MobileBackInfo</class>        
+        <class>apps.transmanager.weboffice.databaseobject.ServerChangeRecords</class>
+        <class>apps.transmanager.weboffice.databaseobject.SystemApps</class>
+        <class>apps.transmanager.weboffice.databaseobject.CompanyApps</class>
+        <class>apps.transmanager.weboffice.databaseobject.UserApps</class>
+        <class>apps.transmanager.weboffice.databaseobject.CompanyConfig</class>
+        <class>apps.transmanager.weboffice.databaseobject.ReviewInfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.ReviewFilesInfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.MessageInfo</class>
+		
+        <class>apps.transmanager.weboffice.databaseobject.transmanage.TransSave</class>
+        <class>apps.transmanager.weboffice.databaseobject.transmanage.TransFiles</class>
+        <class>apps.transmanager.weboffice.databaseobject.transmanage.TransInfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.transmanage.TransSameInfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.transmanage.TransTask</class>
+        <class>apps.transmanager.weboffice.databaseobject.transmanage.TransTaskFiles</class>
+        <class>apps.transmanager.weboffice.databaseobject.transmanage.TransFilesReaders</class>
+        <class>apps.transmanager.weboffice.databaseobject.transmanage.TransSameFiles</class>
+
+		<class>apps.transmanager.weboffice.databaseobject.meetmanage.MeetInfo</class>
+		<class>apps.transmanager.weboffice.databaseobject.meetmanage.MeetFiles</class>
+		<class>apps.transmanager.weboffice.databaseobject.meetmanage.MeetSave</class>
+		<class>apps.transmanager.weboffice.databaseobject.meetmanage.MeetSameInfo</class>
+		<class>apps.transmanager.weboffice.databaseobject.meetmanage.MeetTask</class>
+		<class>apps.transmanager.weboffice.databaseobject.meetmanage.MeetFilesReaders</class>
+		
+		<class>apps.transmanager.weboffice.databaseobject.flow.FlowType</class>
+        <class>apps.transmanager.weboffice.databaseobject.flow.FlowState</class>
+        <class>apps.transmanager.weboffice.databaseobject.flow.FlowInfo</class>
+        <class>apps.transmanager.weboffice.databaseobject.flow.FlowAllNode</class>
+        <class>apps.transmanager.weboffice.databaseobject.flow.FlowSubNode</class>
+        <class>apps.transmanager.weboffice.databaseobject.flow.FlowFiles</class>
+        <class>apps.transmanager.weboffice.databaseobject.flow.FlowOwners</class>
+		<class>apps.transmanager.weboffice.databaseobject.flow.FlowSubOwners</class>
+		<class>apps.transmanager.weboffice.databaseobject.flow.FlowFormTemp</class>
+		<class>apps.transmanager.weboffice.databaseobject.flow.FlowFormOwners</class>
+		<class>apps.transmanager.weboffice.databaseobject.flow.FlowStateOwners</class>
+		<class>apps.transmanager.weboffice.databaseobject.flow.FormInfo</class>
+		<class>apps.transmanager.weboffice.databaseobject.flow.FormFields</class>
+		<class>apps.transmanager.weboffice.databaseobject.flow.FlowFormValues</class>
+		<class>apps.transmanager.weboffice.databaseobject.flow.FlowTransForms</class>
+		
+		
+		<class>apps.transmanager.weboffice.databaseobject.archive.ArchiveForm</class>
+		<class>apps.transmanager.weboffice.databaseobject.archive.ArchiveFormLog</class>
+		<class>apps.transmanager.weboffice.databaseobject.archive.ArchiveReadPower</class>
+		<class>apps.transmanager.weboffice.databaseobject.archive.ArchiveSecurity</class>
+		<class>apps.transmanager.weboffice.databaseobject.archive.ArchiveType</class>
+		<class>apps.transmanager.weboffice.databaseobject.archive.ArchivePermit</class>
+		
+        <class>apps.transmanager.weboffice.databaseobject.Reception</class>
+        <class>apps.transmanager.weboffice.databaseobject.ReceptionDefaultUsers</class>
+        <class>apps.transmanager.weboffice.databaseobject.ReceptionUsers</class>
+        <class>apps.transmanager.weboffice.databaseobject.Receptionhistory</class>
+        <class>apps.transmanager.weboffice.databaseobject.ReceptionImg</class>
+        <class>apps.transmanager.weboffice.databaseobject.Receptionmanlist</class>
+        <class>apps.transmanager.weboffice.databaseobject.Receptionpower</class>
+        <class>apps.transmanager.weboffice.databaseobject.PublishAddress</class>
+        
+        <class>apps.transmanager.weboffice.databaseobject.bug.BugInfos</class>
+        <class>apps.transmanager.weboffice.databaseobject.bug.BugFiles</class>
+        <class>apps.transmanager.weboffice.databaseobject.bug.BugModifyInfos</class>
+        <class>apps.transmanager.weboffice.databaseobject.bug.BugHistories</class>
+        
+        <class>apps.transmanager.weboffice.databaseobject.bug.BugStates</class>
+        <class>apps.transmanager.weboffice.databaseobject.bug.BugActions</class>
+        <class>apps.transmanager.weboffice.databaseobject.bug.StateActions</class>
+        <class>apps.transmanager.weboffice.databaseobject.bug.BugOwnerUsers</class>
+        
+        <class>apps.transmanager.weboffice.databaseobject.MailAccount</class>
+        <class>apps.transmanager.weboffice.databaseobject.MailFolders</class>
+        <class>apps.transmanager.weboffice.databaseobject.MailMessages</class>
+        <class>apps.transmanager.weboffice.databaseobject.MailSources</class>
+        <class>apps.transmanager.weboffice.databaseobject.MailAccountSign</class>
+        
+        <class>apps.transmanager.weboffice.databaseobject.caibian.CollectEdit</class>
+        <class>apps.transmanager.weboffice.databaseobject.caibian.CollectEditSend</class>
+        
+        <class>apps.transmanager.weboffice.domain.AddressListPo</class>
+        <class>apps.transmanager.weboffice.domain.AddressSortPo</class>
+        <class>apps.transmanager.weboffice.domain.SortListPo</class>
+        <class>apps.transmanager.weboffice.domain.CtmGroupMemberPo</class>
+        <class>apps.transmanager.weboffice.domain.CustomGroupPo</class>
+        <class>apps.transmanager.weboffice.domain.DepartmentPo</class>
+        <class>apps.transmanager.weboffice.domain.DepMemberPo</class>
+        <class>apps.transmanager.weboffice.domain.OnlinePo</class>
+        <class>apps.transmanager.weboffice.domain.DiscuGroupPo</class>
+        <class>apps.transmanager.weboffice.domain.DiscuGroupMemberPo</class>
+        <class>apps.transmanager.weboffice.domain.SessionMegPo</class>
+        <class>apps.transmanager.weboffice.domain.GroupSessionMegPo</class>
+        <class>apps.transmanager.weboffice.domain.GroupSessionMegReadPo</class>
+        <class>apps.transmanager.weboffice.domain.PMicroblogMegPo</class>
+        <class>apps.transmanager.weboffice.domain.MicroGroupPo</class>
+        <class>apps.transmanager.weboffice.domain.FriendshipPo</class>
+        <class>apps.transmanager.weboffice.domain.PrivateLetterPo</class>
+        <class>apps.transmanager.weboffice.domain.BlogContentPo</class>
+        <!-- 暂时不用（微博授权） -->
+        <!-- <class>apps.transmanager.weboffice.domain.BlogAccessTokenPo</class> -->
+        <class>apps.transmanager.weboffice.domain.MyFavoritePo</class>
+        <class>apps.transmanager.weboffice.domain.GroupShipPo</class>
+        
+        <!-- 验证信息 -->
+        <class>apps.transmanager.weboffice.domain.ValidateSessionMegPo</class>
+ <!--        
+        <class>com.yozo.meeting.domain.AuthorityPo</class>
+        <class>com.yozo.meeting.domain.RolePo</class>
+        <class>com.yozo.meeting.domain.AuthorityRoleRelationPo</class>
+        <class>com.yozo.meeting.domain.UserMeetingRelationPo</class>
+       	<class>com.yozo.meeting.domain.MeetingRoomPo</class>
+        <class>com.yozo.meeting.domain.MeetingPo</class>
+        
+       -->
+        <class>templates.objectdb.News</class>
+        <class>templates.objectdb.NewsOrgs</class>
+        <class>templates.objectdb.NewsAttached</class>
+        <class>templates.objectdb.NewsType</class>
+        <class>templates.objectdb.Questionnaire</class>
+        <class>templates.objectdb.Collection</class>
+        <class>templates.objectdb.Template</class>
+        <class>templates.objectdb.TemplateType</class>
+         
+        <!-- 文件实体元数据 -->
+        <class>apps.transmanager.weboffice.databaseobject.EntityMetadata</class>
+        
+         <!-- 联系人重新命名 -->
+        <class>apps.transmanager.weboffice.domain.DiscuGroupMemberPoRelationPo</class>
+        
+        <!-- 文件模板 -->
+        <class>apps.transmanager.weboffice.domain.TemplatePo</class>
+        <class>apps.transmanager.weboffice.domain.TemplateItemPo</class>
+
+         <!-- 公文收发 -->
+         <class>apps.transmanager.weboffice.databaseobject.Fawen</class>
+
+        <!-- bug -->
+        <!-- 
+         <class>apps.transmanager.weboffice.domain.BugPo</class>
+         <class>apps.transmanager.weboffice.domain.BugHisPo</class>
+       	 -->
+       <exclude-unlisted-classes>true</exclude-unlisted-classes>
+       
+        <properties>            
+       		<property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.show_sql" value="false" />
+	    </properties> 
+    </persistence-unit>
+</persistence>

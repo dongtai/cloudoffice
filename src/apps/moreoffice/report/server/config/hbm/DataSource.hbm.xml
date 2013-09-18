@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.yozo.report.commons.domain.databaseObject">
+	<class name="DataSource" table="rpt_sys_dataSource">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name">
+			<column name="name" not-null="true">
+				<comment>数据源名称</comment>
+			</column>
+		</property>
+		<set name="dtables" inverse="true" cascade="delete">
+			<key>
+				<column name="dataSource_id" />
+			</key>
+			<one-to-many class="DataTable" />
+		</set>
+	</class>
+</hibernate-mapping>

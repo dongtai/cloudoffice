@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.yozo.report.commons.domain.databaseObject.FillModeItem" table="rpt_sys_fillmodeItem">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="expression">
+			<column name="expression">
+				<comment>提取表达式</comment>
+			</column>
+		</property>
+		<property name="operate">
+			<column name="operate">
+				<comment>操作</comment>
+			</column>
+		</property>
+		<many-to-one name="rfield" lazy="false">
+			<column name="rfield_id">
+				<comment>目的字段id</comment>
+			</column>
+		</many-to-one>
+		<property name="lockState">
+			<column name="lockState">
+				<comment>锁定</comment>
+			</column>
+		</property>
+		<property name="sortType">
+			<column name="sortType">
+				<comment>排序</comment>
+			</column>
+		</property>
+		<property name="position">
+			<column name="position">
+				<comment>位置</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

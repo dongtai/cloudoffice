@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.yozo.report.commons.domain.databaseObject.WriteModeItem" table="rpt_sys_writemodeItem">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="expression">
+			<column name="expression">
+				<comment>提取表达式</comment>
+			</column>
+		</property>
+		<many-to-one name="rfield" lazy="false">
+			<column name="rfield_id">
+				<comment>回写字段id</comment>
+			</column>
+		</many-to-one>
+		<property name="attrFlag">
+			<column name="attrFlag">
+				<comment>基本属性集</comment>
+			</column>
+		</property>
+		<many-to-one name="modifyRule">
+			<column name="modifyRule_id">
+				<comment>修改规则id</comment>
+			</column>
+		</many-to-one>
+		<many-to-one name="addDetailRule">
+			<column name="addDetailRule_id">
+				<comment>补充明细规则id</comment>
+			</column>
+		</many-to-one>
+		<many-to-one name="writeMode">
+			<column name="writeMode_id">
+				<comment>回写id</comment>
+			</column>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

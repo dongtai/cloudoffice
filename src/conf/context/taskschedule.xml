@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	
+	<!-- 系统监控 -->
+    <bean name="sysMonitorJob" class="apps.transmanager.weboffice.service.task.SysMonitorJob" >
+    </bean>
+    <bean id="sysMonitorJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+       <property name="targetObject">
+           <ref bean="sysMonitorJob" />
+       </property>
+       <property name="targetMethod">
+           <value>excuteJob</value>
+       </property>
+    </bean>
+    <!-- 配置触发器 -->
+    <bean id="sysMonitor" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <!-- 这里不可以直接在属性jobDetail中引用sysMonitor，因为他要求的是一个jobDetail类型的对象，所以我们得通过MethodInvokingJobDetailFactoryBean来转一下 -->
+       <property name="jobDetail">
+           <ref bean="sysMonitorJobDetail" />
+       </property>
+       <property name="cronExpression">
+           <value>0 1 0 * * ?</value><!-- 每天夜里12点执行 -->
+       </property>
+    </bean>
+    
+    <!-- 自动备份 -->
+    <bean name="taskJob" class="apps.transmanager.weboffice.service.task.TaskJob" >
+    	<property name="scheduler" ref="schedulerFactory"></property>
+    	<property name="fileSystemService" ref="fileSystemService"></property>
+    </bean>
+    <bean id="methodInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+       <property name="targetObject">
+           <ref bean="taskJob" />
+       </property>
+       <property name="targetMethod">
+           <value>backUp</value>
+       </property>
+    </bean>    
+    <!-- 配置触发器 -->
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <!-- 这里不可以直接在属性jobDetail中引用taskJob，因为他要求的是一个jobDetail类型的对象，所以我们得通过MethodInvokingJobDetailFactoryBean来转一下 -->
+       <property name="jobDetail">
+           <ref bean="methodInvokingJobDetail" />
+       </property>
+       <!--每月最后一天2点执行-->
+       <property name="cronExpression">
+           <value>0 0/10 * * * ?</value><!-- 原来是每2分钟促发一次，现改成10分钟促发一次 -->
+       </property>
+       <!-- 每天的12点到14点每隔20分钟触发 -->
+       <!--
+       <property name="cronExpression">
+           <value>0 1/5 0-13 * * ?</value>
+       </property>
+       -->
+    </bean>
+    <bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+       <!-- 添加触发器 -->
+       <property name="triggers">
+           <list>
+              <ref local="cronTrigger" />
+              <ref local="sysMonitor" />
+           </list>
+       </property>
+    </bean>
+</beans>

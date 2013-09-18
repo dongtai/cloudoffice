@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd" >
+	
+ 	<bean id="xmlsource" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>classpath*:conf/context/persistence-web.xml</value>
+			</list>
+		</property>
+		<property name="dataSources">
+			<map>		
+				<!--  <entry key="localDataSource" value-ref="local-db"/>   -->
+				<entry key="remoteDataSource" value-ref="datasource"/>
+			</map>
+		</property>
+		<!-- if no datasource is specified, use this one -->
+		<property name="defaultDataSource" ref="datasource"/>
+	</bean>
+	 
+	<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitManager" ref="xmlsource"/>
+		<property name="jpaVendorAdapter"> 
+            <bean 
+                class="apps.moreoffice.ext.jpa.WebHibernateJpaVendorAdapter"> 
+                <property name="dialect" value="${database.hibernate.dialect}" /> 
+                <property name="showSql" value="${database.hibernate.showsql}" /> 
+                <!-- <property name="generateDdl" value="true" /> --> 
+            </bean> 
+        </property> 
+	</bean>	
+	
+	<bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">  
+        <property name="entityManagerFactory" ref="emf" />  
+    </bean>
+      
+    <tx:annotation-driven transaction-manager="jpaTransactionManager" /> 
+ 	 	
+ 	<bean id="transactionInterceptor"  class="org.springframework.transaction.interceptor.TransactionInterceptor">  
+        <property name="transactionManager">  
+            <ref local="jpaTransactionManager" />  
+        </property>  
+        <property name="transactionAttributes">  
+            <!-- 下面定义事务（指service里面的方法）传播属性 -->  
+            <props>  
+                <prop key="insert*">PROPAGATION_REQUIRED</prop>  
+                <prop key="update*">PROPAGATION_REQUIRED</prop>  
+                <prop key="save*">PROPAGATION_REQUIRED</prop>  
+                <prop key="add*">PROPAGATION_REQUIRED</prop>  
+                <prop key="remove*">PROPAGATION_REQUIRED</prop>  
+                <prop key="delete*">PROPAGATION_REQUIRED</prop>  
+                <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>  
+                <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>  
+                <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>  
+                <prop key="is*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="change*">PROPAGATION_REQUIRED</prop>  
+                <prop key="count*">PROPAGATION_REQUIRED</prop>
+                <prop key="excute*">PROPAGATION_REQUIRED</prop>   
+                <prop key="*">PROPAGATION_REQUIRED</prop>  
+            </props>  
+        </property>  
+    </bean>  
+      
+    <context:component-scan base-package ="apps.transmanager.weboffice"/>  
+    <context:component-scan base-package ="apps.recepwork"/>
+    <context:component-scan base-package ="apps.bugs"/>
+    <!-- 
+    <context:component-scan base-package ="com.evermore.weboffice"/>    
+    <context:component-scan base-package ="recepwork"/>
+    <context:component-scan base-package ="bugs"/>        
+       -->
+    <!-- 定义自动代理BeanNameAutoProxyCreator -->  
+    <bean id="beanNameAutoProxyCreator"  class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">  
+        <!-- 指定对满足哪些bean name的bean自动生成业务代理 -->  
+        <property name="beanNames">  
+            <list>  
+                <value>*Service</value>
+                <value>ApprovalUtil</value>
+            </list>  
+        </property>  
+        <!-- 下面定义BeanNameAutoProxyCreator所需的事务拦截器  -->  
+        <property name="interceptorNames">  
+            <list>  
+                <!-- 此处可增加其他新的Interceptor -->  
+                <value>transactionInterceptor</value>  
+            </list>
+        </property>  
+    </bean> 
+    
+    <bean id="jpaTemplate" class="org.springframework.orm.jpa.JpaTemplate">
+  		<property name="entityManagerFactory" ref="emf" />
+ 	</bean>
+    			
+	<bean id="userWorkadayService" class="apps.transmanager.weboffice.service.dwr.UserWorkadayImpl">
+	</bean>
+		
+	<bean id="dwrMessagesPush" class="apps.moreoffice.ext.dwr.DwrMessagesPush">
+	</bean>
+	
+	<bean id="ApprovalUtil" class="apps.transmanager.weboffice.service.approval.ApprovalUtil">
+	</bean>
+	
+</beans>

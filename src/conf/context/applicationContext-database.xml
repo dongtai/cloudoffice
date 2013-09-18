@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		
+		<property name="dataSource">
+			<ref bean="datasource" />
+		</property>
+		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					${database.hibernate.dialect}
+				</prop>
+				<prop key="hibernate.show_sql">${database.hibernate.showsql}
+				</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">${database.hibernate.cglib.optimizer}
+				</prop>
+				<prop key="connection.provider_class">${database.hibernate.connection_class}
+				</prop>
+				
+				<!-- 
+				<prop key="hibernate.proxool.properties">conf/funcConfig.properties
+				</prop>
+				<prop key="hibernate.proxool.pool_alias">${jdbc-0.proxool.alias}
+				</prop>
+				 -->
+				 
+			</props>
+		</property>
+		<property name="packagesToScan" value="apps.transmanager.weboffice.databaseobject,apps.transmanager.weboffice.databaseobject.archive,apps.transmanager.weboffice.databaseobject.bug,apps.transmanager.weboffice.databaseobject.caibian,apps.transmanager.weboffice.databaseobject.flow,apps.transmanager.weboffice.databaseobject.meetmanage,apps.transmanager.weboffice.databaseobject.transmanage,apps.transmanager.weboffice.domain,apps.transmanager.weboffice.domain.workflow"></property>
+		<!-- <property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath*:resource/${database.type}</value>
+			</list>
+		</property> -->
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="datasource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver" value="${jdbc-0.proxool.driver-class}" />
+		<property name="driverUrl" value="${jdbc-0.proxool.driver-url}" />
+		<property name="user" value="${jdbc-0.user}" />
+		<property name="password" value="${jdbc-0.password}" />
+		<property name="alias" value="${jdbc-0.proxool.alias}"/>
+		<property name="testBeforeUse" value="false"/>
+		<property name="houseKeepingTestSql" value="${jdbc-0.proxool.house-keeping-test-sql}"/>
+		<property name="maximumActiveTime" value="900000"/>
+		<property name="maximumConnectionCount" value="${jdbc-0.proxool.maximum-connection-count}" />
+		<property name="minimumConnectionCount" value="${jdbc-0.proxool.minimum-connection-count}" />
+		<property name="trace" value="${jdbc-0.proxool.trace}"/>
+		<property name="verbose" value="${jdbc-0.proxool.verbose}"/>
+	</bean> 
+	
+	<bean id="dynamicDatasource" class="apps.moreoffice.ext.database.datasource.DynamicDataSource">
+		<property name="driver" value="${jdbc-0.proxool.driver-class}" />
+		<property name="baseDriverUrl" value="${jdbc-0.proxool.base.driver-url}" />
+		<property name="user" value="${jdbc-0.user}" />
+		<property name="password" value="${jdbc-0.password}" />
+		<property name="alias" value="${jdbc-0.proxool.alias}"/>
+		<property name="testBeforeUse" value="false"/>
+		<property name="houseKeepingTestSql" value="${jdbc-0.proxool.house-keeping-test-sql}"/>
+		<property name="maximumActiveTime" value="900000"/>
+		<property name="maximumConnectionCount" value="${jdbc-0.proxool.maximum-connection-count}" />
+		<property name="minimumConnectionCount" value="${jdbc-0.proxool.minimum-connection-count}" />
+		<property name="trace" value="${jdbc-0.proxool.trace}"/>
+		<property name="verbose" value="${jdbc-0.proxool.verbose}"/>
+	</bean> 
+
+</beans>

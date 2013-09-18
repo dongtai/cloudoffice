@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.yozo.report.commons.domain.databaseObject">
+	<class name="DataRuleCond" table="rpt_sys_dataRuleCond">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<many-to-one name="dataRule" lazy="false">
+			<column name="dataRule_id" not-null="true">
+				<comment>数据规范id</comment>
+			</column>
+		</many-to-one>
+		<property name="dataRuleCond">
+			<column name="dataRuleCond">
+				<comment>数据规范条件</comment>
+			</column>
+		</property>
+		<many-to-one name="parentField">
+			<column name="parentField_id">
+				<comment>父单元格id</comment>
+			</column>
+		</many-to-one>
+		<property name="attrFlag">
+			<column name="attrFlag">
+				<comment>基本属性集</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="bugwork" namespace="/bugwork" extends="struts-default">
+        <action name="bugs_*" method="{1}" class="bugs.BugWork">
+            <result name="input" >/bugwork/buglist.jsp</result>
+            <result name="add" >/bugwork/bugadd.jsp</result>
+            <result name="confirm" >/bugwork/bugconfirm.jsp</result>
+            <result name="view" >/bugwork/bugview.jsp</result>
+            <result name="history" >/bugwork/bughistory.jsp</result>
+            <result name="save" >/bugwork/bugview.jsp</result>
+            <result name="edit" >/bugwork/bugedit.jsp</result>
+            <result name="modifybug" >/bugwork/modifybug.jsp</result>
+            <result name="searchlist" >/bugwork/buglist.jsp</result>
+            <result name="success" type="redirectAction">buglist</result>
+            <result name="logout">/cloud/login.html</result>
+        </action>
+
+        <action name="*" class="bugs.AllSupport">
+            <result>/bugwork/{1}.jsp</result>
+        </action>
+
+        <!-- Add actions here -->
+    </package>
+</struts>

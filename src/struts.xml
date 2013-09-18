@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.custom.i18n.resources" value="message" /> 
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.locale" value="zh_CN" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="false" />
+	<constant name="struts.multipart.maxSize" value="10485760" />
+	<constant name="struts.multipart.saveDir" value="/tempfile" />
+	
+    <include file="recepwork/recepwork-xwork.xml"/>
+    <include file="backflow/flow-xwork.xml"/>
+	<include file="flowform/flowform-xwork.xml"/>
+	<include file="templates/temlates-xwork.xml"/>
+	<include file="bugs/bugs-xwork.xml"/>
+
+    <package name="default" namespace="/" extends="struts-default">
+        <default-action-ref name="index" />
+        <action name="index">
+            <result type="redirectAction">
+                <param name="actionName">reception</param>
+                <param name="namespace">/recepwork</param>
+            </result>
+        </action>
+        <!--
+          <action name="fileTrans_downLoad" class="com.yozo.weboffice.action.ImFileTransAction" method="downLoad"></action>
+           --> 
+           
+           <!--
+           <action name="bug_listBug" class="com.yozo.weboffice.action.BugAction" method="listBug">
+                 
+          </action>
+          
+           <action name="bug_getBug" class="com.yozo.weboffice.action.BugAction" method="getBug">
+                 
+          </action>
+          
+          <action name="bug_allowReply" class="com.yozo.weboffice.action.BugAction" method="allowReply">
+                 
+          </action>  -->
+    </package>
+
+    <!-- Add packages here -->
+    <package name="weibo" extends="struts-default" namespace="/cloud/weibo">
+        <!-- 
+		<action name="upload" class="com.yozo.weboffice.action.uploadpic" method="upload"></action>
+		<action name="delete" class="com.yozo.weboffice.action.uploadpic" method="delete"></action>
+		 -->
+	</package>
+
+</struts>

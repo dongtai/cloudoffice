@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.yozo.report.commons.domain.databaseObject">
+	<class name="Permission" table="rpt_sys_permission">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="type">
+			<column name="type" not-null="true">
+				<comment>权限类型</comment>
+			</column>
+		</property>
+		<property name="objectType">
+			<column name="objectType" not-null="true">
+				<comment>权限对应的作用对象类型</comment>
+			</column>
+		</property>
+		<property name="objectID">
+			<column name="objectID" not-null="true">
+				<comment>权限对应的作用对象ID</comment>
+			</column>
+		</property>
+		<property name="permission">
+			<column name="permission" not-null="true">
+				<comment>权限集</comment>
+			</column>
+		</property>
+		<property name="accessRange">
+			<column name="accessRange">
+				<comment>查阅范围</comment>
+			</column>
+		</property>
+		<property name="dynamicCond">
+			<column name="dynamicCond">
+				<comment>动态条件</comment>
+			</column>
+		</property>
+		<set name="hideFields" table="rpt_sys_permission_rfield" lazy="false">
+			<key>
+				<column name="permissionid">
+					<comment>权限id</comment>
+				</column>
+			</key>
+			<many-to-many class="RField" column="hideField_id" />
+		</set>
+		<set name="fillFields" table="rpt_sys_permission_rfield" lazy="false">
+			<key>
+				<column name="permissionid">
+					<comment>权限id</comment>
+				</column>
+			</key>
+			<many-to-many class="RField" column="fillField_id" />
+		</set>
+		<many-to-one name="template">
+			<column name="template_id">
+				<comment>模板id</comment>
+			</column>
+		</many-to-one>
+		<many-to-one name="dtable">
+			<column name="dtable_id">
+				<comment>用户表id</comment>
+			</column>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_employeeItem" structureRef="String" />
+  <itemDefinition id="_pmItem" structureRef="String" />
+  <itemDefinition id="_hrItem" structureRef="String" />
+  <itemDefinition id="_giItem" structureRef="String" />
+  <itemDefinition id="_guItem" structureRef="String" />
+  <itemDefinition id="_passItem" structureRef="Boolean" />
+  <itemDefinition id="_pm2Item" structureRef="String" />
+
+  <process processType="Private" isExecutable="true" id="com.sample.evaluation2" name="Evaluation2" tns:packageName="defaultPackage" >
+
+    <laneSet>
+      <lane name="book" >
+        <flowNodeRef>_2</flowNodeRef>
+      </lane>
+    </laneSet>
+    <!-- process variables -->
+    <property id="employee" itemSubjectRef="_employeeItem"/>
+    <property id="pm" itemSubjectRef="_pmItem"/>
+    <property id="hr" itemSubjectRef="_hrItem"/>
+    <property id="gi" itemSubjectRef="_giItem"/>
+    <property id="gu" itemSubjectRef="_guItem"/>
+    <property id="pass" itemSubjectRef="_passItem"/>
+    <property id="pm2" itemSubjectRef="_pm2Item"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="Start" />
+    <userTask id="_2" name="Self Evaluation" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("this is self evaluation entry");</script>
+        </tns:onEntry-script>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("first entry ==================\n ");</script>
+        </tns:onEntry-script>
+        <tns:onExit-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("=======================this is self out ");</script>
+        </tns:onExit-script>
+      </extensionElements>
+      <ioSpecification>
+        <dataInput id="_2_CommentInput" name="Comment" />
+        <dataInput id="_2_SkippableInput" name="Skippable" />
+        <dataInput id="_2_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_2_CommentInput</dataInputRefs>
+          <dataInputRefs>_2_SkippableInput</dataInputRefs>
+          <dataInputRefs>_2_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_2_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Please perform a self-evalutation.</from>
+          <to xsi:type="tFormalExpression">_2_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_2_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_2_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_2_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Performance Evaluation</from>
+          <to xsi:type="tFormalExpression">_2_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{employee}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_3" name="PM Evaluation" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("========================this is thrid entry\n");</script>
+        </tns:onEntry-script>
+        <tns:onExit-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("=====================this is thrid exit\n");</script>
+        </tns:onExit-script>
+      </extensionElements>
+      <ioSpecification>
+        <dataInput id="_3_CommentInput" name="Comment" />
+        <dataInput id="_3_SkippableInput" name="Skippable" />
+        <dataInput id="_3_TaskNameInput" name="TaskName" />
+        <dataInput id="_3_GroupIdInput" name="GroupId" />
+        <inputSet>
+          <dataInputRefs>_3_CommentInput</dataInputRefs>
+          <dataInputRefs>_3_SkippableInput</dataInputRefs>
+          <dataInputRefs>_3_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_3_GroupIdInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_3_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">You need to evaluate #{employee}, #{hr}, #{gi}.</from>
+          <to xsi:type="tFormalExpression">_3_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_3_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Performance Evaluation</from>
+          <to xsi:type="tFormalExpression">_3_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">#{gu}, #{gi}</from>
+          <to xsi:type="tFormalExpression">_3_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{pm}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression> #{hr}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_4" name="HR Evaluation" >
+      <extensionElements>
+        <tns:onEntry-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("==========================  this is second entry \n ");</script>
+        </tns:onEntry-script>
+        <tns:onExit-script scriptFormat="http://www.java.com/java">
+          <script>System.out.println("======================= this is second out exit\n");</script>
+        </tns:onExit-script>
+      </extensionElements>
+      <ioSpecification>
+        <dataInput id="_4_CommentInput" name="Comment" />
+        <dataInput id="_4_SkippableInput" name="Skippable" />
+        <dataInput id="_4_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_4_CommentInput</dataInputRefs>
+          <dataInputRefs>_4_SkippableInput</dataInputRefs>
+          <dataInputRefs>_4_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_4_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">You need to evaluate #{employee}.</from>
+          <to xsi:type="tFormalExpression">_4_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_4_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_4_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_4_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Performance Evaluation</from>
+          <to xsi:type="tFormalExpression">_4_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{hr}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <parallelGateway id="_5" name="Gateway" gatewayDirection="Diverging" />
+    <parallelGateway id="_6" name="Gateway" gatewayDirection="Converging" />
+    <endEvent id="_7" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <userTask id="_9" name="lasttask" >
+      <ioSpecification>
+        <dataInput id="_9_CommentInput" name="Comment" />
+        <dataInput id="_9_SkippableInput" name="Skippable" />
+        <dataInput id="_9_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_9_CommentInput</dataInputRefs>
+          <dataInputRefs>_9_SkippableInput</dataInputRefs>
+          <dataInputRefs>_9_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_9_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">last task</from>
+          <to xsi:type="tFormalExpression">_9_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_9_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_9_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_9_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">uuuu</from>
+          <to xsi:type="tFormalExpression">_9_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>#{pm2}</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <inclusiveGateway id="_10" name="Gateway" gatewayDirection="Diverging" />
+    <exclusiveGateway id="_11" name="Gateway" gatewayDirection="Converging" />
+    <scriptTask id="_12" name="Script" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("woeiwqpoie");</script>
+    </scriptTask>
+
+    <!-- connections -->
+    <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
+    <sequenceFlow id="_5-_3" sourceRef="_5" targetRef="_3" />
+    <sequenceFlow id="_5-_4" sourceRef="_5" targetRef="_4" />
+    <sequenceFlow id="_11-_5" sourceRef="_11" targetRef="_5" />
+    <sequenceFlow id="_4-_6" sourceRef="_4" targetRef="_6" />
+    <sequenceFlow id="_3-_6" sourceRef="_3" targetRef="_6" />
+    <sequenceFlow id="_12-_7" sourceRef="_12" targetRef="_7" />
+    <sequenceFlow id="_10-_9" sourceRef="_10" targetRef="_9" name="endt" >
+      <conditionExpression xsi:type="tFormalExpression" >return pass;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_6-_10" sourceRef="_6" targetRef="_10" />
+    <sequenceFlow id="_2-_11" sourceRef="_2" targetRef="_11" />
+    <sequenceFlow id="_10-_11" sourceRef="_10" targetRef="_11" name="repeat" >
+      <conditionExpression xsi:type="tFormalExpression" >return !pass;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_9-_12" sourceRef="_9" targetRef="_12" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.sample.evaluation2" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="24" y="100" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="105" y="99" width="135" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="582" y="71" width="136" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="571" y="142" width="136" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="431" y="101" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="859" y="120" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="861" y="278" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_9" >
+        <dc:Bounds x="636" y="275" width="100" height="49" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_10" >
+        <dc:Bounds x="336" y="271" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_11" >
+        <dc:Bounds x="338" y="99" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_12" >
+        <dc:Bounds x="678" y="405" width="115" height="47" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-_2" >
+        <di:waypoint x="48" y="124" />
+        <di:waypoint x="172" y="123" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_3" >
+        <di:waypoint x="455" y="125" />
+        <di:waypoint x="650" y="95" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_4" >
+        <di:waypoint x="455" y="125" />
+        <di:waypoint x="639" y="166" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_11-_5" >
+        <di:waypoint x="362" y="123" />
+        <di:waypoint x="455" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_6" >
+        <di:waypoint x="639" y="166" />
+        <di:waypoint x="883" y="144" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-_6" >
+        <di:waypoint x="650" y="95" />
+        <di:waypoint x="883" y="144" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12-_7" >
+        <di:waypoint x="735" y="428" />
+        <di:waypoint x="885" y="302" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_9" >
+        <di:waypoint x="360" y="295" />
+        <di:waypoint x="686" y="299" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_10" >
+        <di:waypoint x="883" y="144" />
+        <di:waypoint x="360" y="295" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-_11" >
+        <di:waypoint x="172" y="123" />
+        <di:waypoint x="362" y="123" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_11" >
+        <di:waypoint x="360" y="295" />
+        <di:waypoint x="362" y="123" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9-_12" >
+        <di:waypoint x="686" y="299" />
+        <di:waypoint x="735" y="428" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

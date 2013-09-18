@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.yozo.report.commons.domain.databaseObject">
+	<class name="HyperLink" table="rpt_sys_hyperlink">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="type">
+			<column name="type">
+				<comment>链接类型</comment>
+			</column>
+		</property>
+		<many-to-one name="targetTemplate">
+			<column name="targetTemplate_id">
+				<comment>链接到的模板id</comment>
+			</column>
+		</many-to-one>
+		<property name="urlPath">
+			<column name="urlPath">
+				<comment>外部URL</comment>
+			</column>
+		</property>
+		<set name="hyperLinkInfos" cascade="all" lazy="false">
+			<key>
+				<column name="hyperLink_id" />
+			</key>
+			<one-to-many class="HyperLinkInfo" />
+		</set>
+	</class>
+</hibernate-mapping>

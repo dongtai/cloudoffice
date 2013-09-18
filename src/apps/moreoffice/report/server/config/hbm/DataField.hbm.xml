@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.yozo.report.commons.domain.databaseObject">
+	<class name="DataField" table="rpt_sys_dataField">
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name">
+			<column name="name" not-null="true">
+				<comment>逻辑上的字段名</comment>
+			</column>
+		</property>
+		<property name="realName">
+			<column name="realName" length="64" not-null="true">
+				<comment>物理上的字段名，即真正的字段名</comment>
+			</column>
+		</property>
+		<property name="attrFlag">
+			<column name="attrFlag">
+				<comment>基本属性集</comment>
+			</column>
+		</property>
+		<set name="downListRules" inverse="true" cascade="delete">
+			<key>
+				<column name="dfield_id" />
+			</key>
+			<one-to-many class="DownListRule" />
+		</set>
+		<set name="downListRuleSs" inverse="true" cascade="delete">
+			<key>
+				<column name="sortField_id" />
+			</key>
+			<one-to-many class="DownListRule" />
+		</set>
+		<set name="listSelectItems" inverse="true" cascade="delete">
+			<key>
+				<column name="dfield_id" />
+			</key>
+			<one-to-many class="ListSelectItem" />
+		</set>
+		<set name="treeSelectRule1" inverse="true" cascade="delete">
+			<key>
+				<column name="codeorPrimaryField_id" />
+			</key>
+			<one-to-many class="TreeSelectRule" />
+		</set>
+		<set name="treeSelectRule2" inverse="true" cascade="delete">
+			<key>
+				<column name="parentPrimaryField_id" />
+			</key>
+			<one-to-many class="TreeSelectRule" />
+		</set>
+		<set name="treeSelectRule3" inverse="true" cascade="delete">
+			<key>
+				<column name="viewField_id" />
+			</key>
+			<one-to-many class="TreeSelectRule" />
+		</set>
+		<set name="levelFields" inverse="true" cascade="delete">
+			<key>
+				<column name="dfield_id" />
+			</key>
+			<one-to-many class="LevelField" />
+		</set>
+		<set name="rfields" inverse="true" cascade="delete">
+			<key>
+				<column name="dfield_id" />
+			</key>
+			<one-to-many class="RField" />
+		</set>
+	</class>
+</hibernate-mapping>

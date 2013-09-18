@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.yozo.report.commons.domain.databaseObject">
+	<class name="TableRule" table="rpt_sys_tableRule">
+		<!-- 公共属性 -->
+		<id name="id">
+			<generator class="native" />
+		</id>
+		<property name="name">
+			<column name="name" length="64" not-null="true">
+				<comment>表间规则名称</comment>
+			</column>
+		</property>
+		<property name="type">
+			<column name="type">
+				<comment>类型</comment>
+			</column>
+		</property>
+		<property name="explain">
+			<column name="description">
+				<comment>规则说明</comment>
+			</column>
+		</property>
+		<property name="position">
+			<column name="position" not-null="true">
+				<comment>位置</comment>
+			</column>
+		</property>
+		<property name="appMode">
+			<column name="appMode" not-null="true">
+				<comment>应用方式</comment>
+			</column>
+		</property>
+		<property name="commonAttrFlag">
+			<column name="commonAttrFlag">
+				<comment>公共基本属性集</comment>
+			</column>
+		</property>
+		<many-to-one name="currentTemplate">
+			<column name="template_id">
+				<comment>表间规则所在模板id</comment>
+			</column>
+		</many-to-one>
+
+		<!-- 提数 -->
+		<joined-subclass name="ReadRule" table="rpt_sys_readRule">
+			<key>
+				<column name="tableRule_id">
+					<comment>表间规则id</comment>
+				</column>
+			</key>
+			<set name="rtables" table="rpt_sys_readrule_rtable" lazy="false">
+				<key>
+					<column name="readRule_id">
+						<comment>提数规则id</comment>
+					</column>
+				</key>
+				<many-to-many class="RTable" column="rtable_id" />
+			</set>
+			<set name="joinConds" cascade="all" lazy="false">
+				<key>
+					<column name="readRule_id" />
+				</key>
+				<one-to-many class="JoinCond" />
+			</set>
+			<property name="filterCond">
+				<column name="filterCond">
+					<comment>筛选条件</comment>
+				</column>
+			</property>
+			<many-to-one name="fillTable">
+				<column name="fillTable_id">
+					<comment>填充数据表id</comment>
+				</column>
+			</many-to-one>
+			<set name="fillModes" cascade="all" lazy="false">
+				<key>
+					<column name="readRule_id" />
+				</key>
+				<one-to-many class="FillMode" />
+			</set>
+			<property name="execCond">
+				<column name="execCond">
+					<comment>执行条件</comment>
+				</column>
+			</property>
+			<property name="displayNumber">
+				<column name="displayNumber">
+					<comment>提取前N条记录</comment>
+				</column>
+			</property>
+			<property name="attrFlag">
+				<column name="attrFlag">
+					<comment>基本属性集</comment>
+				</column>
+			</property>
+		</joined-subclass>
+
+		<!-- 修改 -->
+		<joined-subclass name="ModifyRule" table="rpt_sys_modifyRule">
+			<key>
+				<column name="tableRule_id">
+					<comment>表间规则id</comment>
+				</column>
+			</key>
+			<many-to-one name="rtable" lazy="false">
+				<column name="rtable_id">
+					<comment>回写数据表id</comment>
+				</column>
+			</many-to-one>
+			<property name="filterCond">
+				<column name="filterCond">
+					<comment>筛选条件</comment>
+				</column>
+			</property>
+			<set name="writeModeItems" cascade="all" lazy="false">
+				<key>
+					<column name="modifyRule_id" />
+				</key>
+				<one-to-many class="WriteModeItem" />
+			</set>
+		</joined-subclass>
+
+		<!-- 补充明细 -->
+		<joined-subclass name="AddDetailRule" table="rpt_sys_addDetailrule">
+			<key>
+				<column name="tableRule_id">
+					<comment>表间规则id</comment>
+				</column>
+			</key>
+			<many-to-one name="template" lazy="false">
+				<column name="template_id">
+					<comment>补充到的模板id</comment>
+				</column>
+			</many-to-one>
+			<many-to-one name="rtable" lazy="false">
+				<column name="rtable_id">
+					<comment>明细表id</comment>
+				</column>
+			</many-to-one>
+			<property name="primaryTableCond">
+				<column name="primaryTableCond">
+					<comment>主表条件</comment>
+				</column>
+			</property>
+			<property name="filterCond">
+				<column name="filterCond">
+					<comment>筛选条件</comment>
+				</column>
+			</property>
+			<set name="writeModeItems" cascade="all" lazy="false">
+				<key>
+					<column name="addDetailRule_id" />
+				</key>
+				<one-to-many class="WriteModeItem" />
+			</set>
+		</joined-subclass>
+
+		<!-- 删除明细 -->
+		<joined-subclass name="DelDetailRule" table="rpt_sys_delDetailRule">
+			<key>
+				<column name="tableRule_id">
+					<comment>表间规则id</comment>
+				</column>
+			</key>
+			<many-to-one name="template" lazy="false">
+				<column name="template_id">
+					<comment>对应的模板id</comment>
+				</column>
+			</many-to-one>
+			<many-to-one name="rtable" lazy="false">
+				<column name="rtable_id">
+					<comment>明细表id</comment>
+				</column>
+			</many-to-one>
+			<property name="filterCond">
+				<column name="filterCond">
+					<comment>筛选条件</comment>
+				</column>
+			</property>
+		</joined-subclass>
+
+		<!-- 新建表单 -->
+		<joined-subclass name="NewFormRule" table="rpt_sys_newFormRule">
+			<key>
+				<column name="tableRule_id">
+					<comment>表间规则id</comment>
+				</column>
+			</key>
+			<many-to-one name="template" lazy="false">
+				<column name="template_id">
+					<comment>需要新建表单的模板id</comment>
+				</column>
+			</many-to-one>
+			<property name="filterCond">
+				<column name="filterCond">
+					<comment>筛选条件</comment>
+				</column>
+			</property>
+			<set name="writeModes" cascade="all" lazy="false">
+				<key>
+					<column name="newFormRule_id">
+						<comment>新建表单规则id</comment>
+					</column>
+				</key>
+				<one-to-many class="WriteMode" />
+			</set>
+		</joined-subclass>
+
+		<!-- 删除表单 -->
+		<joined-subclass name="DelFormRule" table="rpt_sys_delFormRule">
+			<key>
+				<column name="tableRule_id">
+					<comment>表间规则id</comment>
+				</column>
+			</key>
+			<many-to-one name="template" lazy="false">
+				<column name="template_id">
+					<comment>需要删除表单的模板id</comment>
+				</column>
+			</many-to-one>
+			<property name="filterCond">
+				<column name="filterCond">
+					<comment>筛选条件</comment>
+				</column>
+			</property>
+		</joined-subclass>
+	</class>
+</hibernate-mapping>
